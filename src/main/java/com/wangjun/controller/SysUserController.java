@@ -81,9 +81,28 @@ public class SysUserController {
         return sysUserService.list();
     }
 
+    /**
+     * 分页查询
+     * @param page 起始页
+     * @param size 每页显示条数
+     * @return
+     */
     @PostMapping(value = "/page")
     public Page<SysUser> page(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "2") Integer size){
         return sysUserService.page(page,size);
+    }
+
+
+    /**
+     * 模糊查询+分页
+     * @param nickname 昵称
+     * @param page 起始页
+     * @param size 每页几条
+     * @return
+     */
+    @PostMapping(value = "search")
+    public Page<SysUser> search(@RequestParam String nickname, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "3") Integer size) {
+        return sysUserService.searchByNickname(nickname, page, size);
     }
 
 }

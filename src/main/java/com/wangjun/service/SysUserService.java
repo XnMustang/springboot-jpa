@@ -5,6 +5,7 @@ import com.wangjun.repository.SysUserRepository;
 import com.wangjun.response.MyResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -115,4 +116,18 @@ public class SysUserService {
         PageRequest pageable = PageRequest.of(page, size, Sort.Direction.ASC, "userId");
         return sysUserRepository.findAll(pageable);
     }
+
+    /**
+     * 模糊查询+分页
+     * @param nickname 昵称
+     * @param page 起始页
+     * @param size 每页几条
+     * @return
+     */
+    public Page<SysUser> searchByNickname(String nickname, Integer page, Integer size) {
+        // 根据 userId 排序
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "userId");
+        return sysUserRepository.searchByNickname(nickname,pageable);
+    }
+
 }
